@@ -1,3 +1,4 @@
+from pprint import pprint
 LAST_INDEX_RANGE = 0
 PRODUCT_DB = [
     {"name": "Car", "price": 2.90},
@@ -15,8 +16,9 @@ def display_products(product_list):
     global LAST_INDEX_RANGE
 
     new_index_pos = LAST_INDEX_RANGE + 3
+    result = product_list[LAST_INDEX_RANGE: new_index_pos]
     LAST_INDEX_RANGE = new_index_pos
-    return product_list[LAST_INDEX_RANGE: new_index_pos]
+    return result
 
 
 def search_product(name):
@@ -44,7 +46,10 @@ print("Hello Welcome to our store")
 while True:
     choice = input(MENU)
     if choice == "1":
-        display_products(PRODUCT_DB)
+        pprint(display_products(PRODUCT_DB), indent=4)
+    elif choice == "3":
+        print("View reset successful")
+        LAST_INDEX_RANGE = 0
     elif choice == "4":
         while True:
             LAST_INDEX_RANGE = 0

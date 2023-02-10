@@ -1020,9 +1020,10 @@ LAST_INDEX = 0
 
 def view_books(results: list) -> None:
     global LAST_INDEX
-    next_index = LAST_INDEX + 10
-    print(results[LAST_INDEX: next_index])
+    next_index = LAST_INDEX + 3
+    x = results[LAST_INDEX: next_index]
     LAST_INDEX = next_index
+    return x
 
 
 menu = """Welcome to the book club
@@ -1047,15 +1048,20 @@ while True:
             filter = input(">>> ")
             if filter == "1":
                 s_title = input("Enter title to search: ")
-                result = [book for book in BOOK_DB if s_title in book['title']]
-                if len(result) > 10:
-                    print(result[:2])
-                    LAST_INDEX = 2
+                result = [book['title'] for book in BOOK_DB if s_title in book['title']]
+                if len(result) > 3:
+                    print(result[:3])
+                    LAST_INDEX = 3
                     while True:
-                        x = input("enter 'n' to view results")
-                        if x == 'n':
-                            view_books(result)
-                print(result)
+                        view_nxt = input("next> ")
+                        if view_nxt == "n":
+                            split_result = view_books(result)
+                            if len(split_result) > 0:
+                                print(split_result)
+                            else:
+                                break
+                else:
+                    print(result)
     else:
         print("Exiting library")
         break
